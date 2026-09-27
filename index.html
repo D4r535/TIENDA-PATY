@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Tienda Paty</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f6fa;
+      color: #333;
+    }
+
+    /* BARRA SUPERIOR */
+
+    .header {
+      height: 65px;
+      background: #e87500;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 25px;
+      font-size: 23px;
+      font-weight: bold;
+    }
+
+
+    /* CONTENEDOR GENERAL */
+
+    .contenedor {
+      display: flex;
+      min-height: calc(100vh - 65px);
+    }
+
+
+    /* MENU LATERAL */
+
+    .menu {
+      width: 230px;
+      background: #252525;
+      color: white;
+      padding-top: 20px;
+    }
+
+    .menu button {
+      width: 100%;
+      background: transparent;
+      color: white;
+      border: none;
+      padding: 16px 20px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .menu button:hover {
+      background: #e87500;
+    }
+
+
+    /* CONTENIDO */
+
+    .contenido {
+      flex: 1;
+      padding: 30px;
+    }
+
+
+    .seccion {
+      display: none;
+    }
+
+    .seccion.activa {
+      display: block;
+    }
+
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+    }
+
+
+    /* TARJETAS */
+
+    .tarjetas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px,1fr));
+      gap: 20px;
+    }
+
+    .tarjeta {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.10);
+    }
+
+    .tarjeta h3 {
+      font-size: 14px;
+      color: #777;
+    }
+
+    .tarjeta p {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #e87500;
+    }
+
+
+    /* FORMULARIOS */
+
+    .formulario {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      margin-bottom: 25px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+      gap: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+
+    /* BOTONES */
+
+    .boton {
+      background: #e87500;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      margin-top: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .boton:hover {
+      background: #c96300;
+    }
+
+
+    /* TABLAS */
+
+    .tabla-contenedor {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background: #e87500;
+      color: white;
+      padding: 12px;
+    }
+
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover {
+      background: #faf2ea;
+    }
+
+
+    /* MENSAJES */
+
+    #mensaje {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .correcto {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
+
+
+    @media(max-width: 700px) {
+
+      .contenedor {
+        flex-direction: column;
+      }
+
+      .menu {
+        width: 100%;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+<!-- ENCABEZADO -->
+
+<div class="header">
+  🧵 TIENDA PATY
+</div>
+
+
+<div class="contenedor">
+
+
+<!-- MENU -->
+
+<div class="menu">
+
+  <button onclick="mostrarSeccion('inicio')">
+    🏠 Inicio
+  </button>
+
+  <button onclick="mostrarSeccion('productos')">
+    📦 Productos
+  </button>
+
+  <button onclick="mostrarSeccion('inventario')">
+    📋 Inventario
+  </button>
+
+  <button onclick="mostrarSeccion('compras')">
+    🛒 Compras
+  </button>
+
+  <button onclick="mostrarSeccion('ventas')">
+    💰 Ventas
+  </button>
+
+  <button onclick="mostrarSeccion('caja')">
+    💵 Caja
+  </button>
+
+  <button onclick="mostrarSeccion('cxc')">
+    📑 Cuentas por cobrar
+  </button>
+
+  <button onclick="mostrarSeccion('clientes')">
+    👥 Clientes
+  </button>
+
+  <button onclick="mostrarSeccion('proveedores')">
+    🚚 Proveedores
+  </button>
+
+  <button onclick="mostrarSeccion('reportes')">
+    📊 Reportes
+  </button>
+
+</div>
+
+
+<!-- CONTENIDO -->
+
+<div class="contenido">
+
+
+<!-- INICIO -->
+
+<div id="inicio"
+     class="seccion activa">
+
+  <h1>Panel principal</h1>
+
+  <div class="tarjetas">
+
+    <div class="tarjeta">
+      <h3>Productos</h3>
+      <p id="totalProductos">0</p>
+    </div>
+
+    <div class="tarjeta">
+      <h3>Ventas del día</h3>
+      <p>Q0.00</p>
+    </div>
+
+    <div class="tarjeta">
+      <h3>Cuentas por cobrar</h3>
+      <p>Q0.00</p>
+    </div>
+
+    <div class="tarjeta">
+      <h3>Caja</h3>
+      <p>Q0.00</p>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- PRODUCTOS -->
+
+<div id="productos"
+     class="seccion">
+
+  <h1>Productos</h1>
+
+
+  <div class="formulario">
+
+    <h2>Registrar producto</h2>
+
+
+    <div class="grid">
+
+
+      <div>
+        <label>Código</label>
+
+        <input
+          type="text"
+          id="codigo"
+          placeholder="Ej. HIL-001">
+      </div>
+
+
+      <div>
+        <label>Producto *</label>
+
+        <input
+          type="text"
+          id="producto"
+          placeholder="Ej. Hilo Omega">
+      </div>
+
+
+      <div>
+        <label>Marca</label>
+
+        <input
+          type="text"
+          id="marca">
+      </div>
+
+
+      <div>
+        <label>Color</label>
+
+        <input
+          type="text"
+          id="color">
+      </div>
+
+
+      <div>
+        <label>Presentación</label>
+
+        <input
+          type="text"
+          id="presentacion"
+          placeholder="Cono, libra, madeja...">
+      </div>
+
+
+      <div>
+        <label>Unidad base</label>
+
+        <input
+          type="text"
+          id="unidadBase"
+          placeholder="Cono">
+      </div>
+
+
+      <div>
+        <label>Factor conversión</label>
+
+        <input
+          type="number"
+          id="factorConversion"
+          value="1"
+          min="0"
+          step="0.01">
+      </div>
+
+
+      <div>
+        <label>Costo</label>
+
+        <input
+          type="number"
+          id="costo"
+          value="0"
+          step="0.01">
+      </div>
+
+
+      <div>
+        <label>Precio detalle</label>
+
+        <input
+          type="number"
+          id="precioDetalle"
+          value="0"
+          step="0.01">
+      </div>
+
+
+      <div>
+        <label>Precio mayoreo</label>
+
+        <input
+          type="number"
+          id="precioMayoreo"
+          value="0"
+          step="0.01">
+      </div>
+
+
+    </div>
+
+
+    <button
+      class="boton"
+      onclick="guardarProducto()">
+
+      Guardar producto
+
+    </button>
+
+
+    <div id="mensaje"></div>
+
+  </div>
+
+
+
+  <div class="tabla-contenedor">
+
+    <h2>Productos registrados</h2>
+
+    <br>
+
+    <input
+      type="text"
+      id="buscar"
+      placeholder="Buscar producto..."
+      onkeyup="buscarProductosPantalla()">
+
+    <br><br>
+
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>ID</th>
+
+          <th>Código</th>
+
+          <th>Producto</th>
+
+          <th>Marca</th>
+
+          <th>Color</th>
+
+          <th>Presentación</th>
+
+          <th>Costo</th>
+
+          <th>Precio detalle</th>
+
+          <th>Precio mayoreo</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody id="tablaProductos">
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+
+<!-- INVENTARIO -->
+
+<div id="inventario"
+     class="seccion">
+
+  <h1>Inventario</h1>
+
+  <div class="formulario">
+
+    <h2>Módulo de Inventario</h2>
+
+    <p>
+      Aquí mostraremos las existencias actuales,
+      entradas, salidas y Kardex de cada producto.
+    </p>
+
+  </div>
+
+</div>
+
+
+
+<!-- COMPRAS -->
+
+<div id="compras"
+     class="seccion">
+
+  <h1>Compras</h1>
+
+  <div class="formulario">
+
+    <h2>Registro de compras</h2>
+
+    <p>
+      Próximamente aquí registraremos las compras
+      y las entradas automáticas al inventario.
+    </p>
+
+  </div>
+
+</div>
+
+
+
+<!-- VENTAS -->
+
+<div id="ventas"
+     class="seccion">
+
+  <h1>Ventas</h1>
+
+  <div class="formulario">
+
+    <h2>Punto de venta</h2>
+
+    <p>
+      Aquí construiremos la caja para registrar
+      ventas al contado y al crédito.
+    </p>
+
+  </div>
+
+</div>
+
+
+
+<!-- CAJA -->
+
+<div id="caja"
+     class="seccion">
+
+  <h1>Caja</h1>
+
+  <div class="formulario">
+
+    <h2>Control de caja</h2>
+
+    <p>
+      Se mostrarán ingresos, egresos,
+      movimientos y cierre diario.
+    </p>
+
+  </div>
+
+</div>
+
+
+
+<!-- CXC -->
+
+<div id="cxc"
+     class="seccion">
+
+  <h1>Cuentas por cobrar</h1>
+
+  <div class="formulario">
+
+    <h2>Créditos</h2>
+
+    <p>
+      Aquí controlaremos clientes,
+      ventas al crédito, abonos y saldos.
+    </p>
+
+  </div>
+
+</div>
+
+
+
+<!-- CLIENTES -->
+
+<div id="clientes"
+     class="seccion">
+
+  <h1>Clientes</h1>
+
+  <div class="formulario">
+
+    <p>
+      Aquí construiremos el registro
+      y administración de clientes.
+    </p>
+
+  </div>
+
+</div>
+
+
+
+<!-- PROVEEDORES -->
+
+<div id="proveedores"
+     class="seccion">
+
+  <h1>Proveedores</h1>
+
+  <div class="formulario">
+
+    <p>
+      Aquí construiremos el registro
+      de proveedores.
+    </p>
+
+  </div>
+
+</div>
+
+
+
+<!-- REPORTES -->
+
+<div id="reportes"
+     class="seccion">
+
+  <h1>Reportes</h1>
+
+  <div class="formulario">
+
+    <p>
+      Aquí estarán los reportes de ventas,
+      compras, inventario, caja y cuentas
+      por cobrar.
+    </p>
+
+  </div>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+
+
+<script>
+
+
+/***********************************************
+ MOSTRAR SECCIONES
+***********************************************/
+
+function mostrarSeccion(nombre) {
+
+  const secciones =
+    document.querySelectorAll(".seccion");
+
+  secciones.forEach(seccion => {
+    seccion.classList.remove("activa");
+  });
+
+
+  document
+    .getElementById(nombre)
+    .classList
+    .add("activa");
+
+
+  if (nombre === "productos") {
+    cargarProductos();
+  }
+
+}
+
+
+
+/***********************************************
+ GUARDAR PRODUCTO
+***********************************************/
+
+function guardarProducto() {
+
+
+  const producto =
+    document.getElementById("producto").value.trim();
+
+
+  if (producto === "") {
+
+    mostrarMensaje(
+      "Debe ingresar el nombre del producto.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  const datos = {
+
+    codigo:
+      document.getElementById("codigo").value,
+
+    producto:
+      producto,
+
+    marca:
+      document.getElementById("marca").value,
+
+    color:
+      document.getElementById("color").value,
+
+    presentacion:
+      document.getElementById("presentacion").value,
+
+    unidadBase:
+      document.getElementById("unidadBase").value,
+
+    factorConversion:
+      document.getElementById("factorConversion").value,
+
+    costo:
+      document.getElementById("costo").value,
+
+    precioDetalle:
+      document.getElementById("precioDetalle").value,
+
+    precioMayoreo:
+      document.getElementById("precioMayoreo").value
+
+  };
+
+
+  mostrarMensaje(
+    "Guardando producto...",
+    true
+  );
+
+
+  google.script.run
+
+    .withSuccessHandler(function(respuesta) {
+
+      mostrarMensaje(
+        respuesta.mensaje +
+        " ID: " +
+        respuesta.id,
+        true
+      );
+
+      limpiarFormularioProducto();
+
+      cargarProductos();
+
+    })
+
+    .withFailureHandler(function(error) {
+
+      mostrarMensaje(
+        "Error: " + error.message,
+        false
+      );
+
+    })
+
+    .guardarProducto(datos);
+
+}
+
+
+
+/***********************************************
+ CARGAR PRODUCTOS
+***********************************************/
+
+function cargarProductos() {
+
+
+  google.script.run
+
+    .withSuccessHandler(function(productos) {
+
+      mostrarProductos(productos);
+
+    })
+
+    .withFailureHandler(function(error) {
+
+      console.error(error);
+
+    })
+
+    .obtenerProductos();
+
+}
+
+
+
+/***********************************************
+ MOSTRAR PRODUCTOS
+***********************************************/
+
+function mostrarProductos(productos) {
+
+
+  const tabla =
+    document.getElementById("tablaProductos");
+
+
+  tabla.innerHTML = "";
+
+
+  productos.forEach(producto => {
+
+
+    const fila =
+      document.createElement("tr");
+
+
+    fila.innerHTML = `
+
+      <td>${producto.idProducto || ""}</td>
+
+      <td>${producto.codigo || ""}</td>
+
+      <td>${producto.producto || ""}</td>
+
+      <td>${producto.marca || ""}</td>
+
+      <td>${producto.color || ""}</td>
+
+      <td>${producto.presentacion || ""}</td>
+
+      <td>Q${formatoNumero(producto.costo)}</td>
+
+      <td>Q${formatoNumero(producto.precioDetalle)}</td>
+
+      <td>Q${formatoNumero(producto.precioMayoreo)}</td>
+
+    `;
+
+
+    tabla.appendChild(fila);
+
+  });
+
+
+  document.getElementById("totalProductos")
+    .textContent = productos.length;
+
+}
+
+
+
+/***********************************************
+ BUSCAR PRODUCTOS
+***********************************************/
+
+function buscarProductosPantalla() {
+
+
+  const texto =
+    document.getElementById("buscar").value;
+
+
+  google.script.run
+
+    .withSuccessHandler(function(productos) {
+
+      mostrarProductos(productos);
+
+    })
+
+    .buscarProductos(texto);
+
+}
+
+
+
+/***********************************************
+ LIMPIAR FORMULARIO
+***********************************************/
+
+function limpiarFormularioProducto() {
+
+
+  document.getElementById("codigo").value = "";
+
+  document.getElementById("producto").value = "";
+
+  document.getElementById("marca").value = "";
+
+  document.getElementById("color").value = "";
+
+  document.getElementById("presentacion").value = "";
+
+  document.getElementById("unidadBase").value = "";
+
+  document.getElementById("factorConversion").value = 1;
+
+  document.getElementById("costo").value = 0;
+
+  document.getElementById("precioDetalle").value = 0;
+
+  document.getElementById("precioMayoreo").value = 0;
+
+}
+
+
+
+/***********************************************
+ MENSAJES
+***********************************************/
+
+function mostrarMensaje(texto, correcto) {
+
+
+  const mensaje =
+    document.getElementById("mensaje");
+
+
+  mensaje.textContent = texto;
+
+
+  mensaje.className =
+    correcto
+      ? "correcto"
+      : "error";
+
+}
+
+
+
+/***********************************************
+ FORMATO MONEDA
+***********************************************/
+
+function formatoNumero(numero) {
+
+
+  return Number(numero || 0)
+    .toLocaleString(
+      "es-GT",
+      {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }
+    );
+
+}
+
+
+
+/***********************************************
+ INICIAR
+***********************************************/
+
+window.onload = function() {
+
+  cargarProductos();
+
+};
+
+
+</script>
+
+
+</body>
+</html>
